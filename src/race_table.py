@@ -46,6 +46,7 @@ class TableRaceResult:
 
         self.map_name = None
         self.player_count = None
+        self.type_race_code = None
         self.players_position = {}
 
     def get_race_result(self):
@@ -59,9 +60,10 @@ class TableRaceResult:
         race_code = unpack("I", race_code)[0]
         # race_code 7 и 8 это онлайн заезды.
         # 1 - обычная гонка, но не думаю что кому-то надо считать заезды с ботами. нужно только для тестов на таблице ботов
-        if race_code not in (7, 8):
+        if race_code not in (1, 7, 8):
             self.status = "BAD_RACE_CODE"
             return
+        self.type_race_code = race_code
         # Players Count
         players_count = self._read_process_memory(ADDR_CAR_COUNT, 4)
         players_count = unpack("I", players_count)[0]
@@ -135,3 +137,4 @@ class TableRaceResult:
 
     def __del__(self):
         self._close_handle()
+
