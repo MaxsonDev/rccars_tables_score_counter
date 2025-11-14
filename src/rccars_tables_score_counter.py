@@ -259,11 +259,16 @@ class MainWindow:
                 self.clear_result_table()
                 self._add_players_in_table_standard(table)
                 message = f"Добавлен результат заезда на карте {table.map_name}! Участников: {table.player_count}."
+                self.log_message(message)
+                if table.type_race_code == 1:
+                    message = f"Внимание, ты сохранил гонку с ботами! А.. Тебе надо.. Тогда ладно!:D"
+                    self.log_message(message)
+                return
             else:
                 if table.status == "PID_IS_NONE":
                     message = "Игра не запущена! Запусти Недетские гонки!"
                 elif table.status == "BAD_RACE_CODE":
-                    message = "Записать можно только результат онлайн гонки. Или ты хочешь записать результат заезда с ботами?XD"
+                    message = "Записать можно только результат онлайн гонки. И с ботами для тестов."
                 elif table.status == "BAD_PLAYER_COUNT":
                     message = "Количество игроков в заезде равно 0! Скорее всего гонка не запущена."
                 else:
@@ -280,4 +285,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
